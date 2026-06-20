@@ -1,0 +1,207 @@
+/* 🎯 Global Rules: Poori monitor screen se white edges/bars hatane ke liye */
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0f172a; /* Yeh poori background screen ko dark kar dega */
+    overflow-x: hidden; /* Fuzool ke horizontal scrollbar ko rokne ke liye */
+}
+
+/* Custom Animations */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spin-animation {
+    animation: spin 1s linear infinite;
+}
+
+/* Base App Layout */
+.app-container {
+    background-color: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box; /* Padding ko screen se baahar stretch hone se rokega */
+    padding: 2rem;
+    font-family: system-ui, sans-serif;
+}
+
+/* Header Component */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 1.5rem;
+}
+
+.main-title {
+    font-size: 2.2rem; 
+    font-weight: 800;
+    background: linear-gradient(90deg, #f59e0b, #ef4444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    line-height: 1.2; 
+    white-space: nowrap; 
+}
+
+.sub-title {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin: 0.2rem 0 0 0;
+}
+
+.sync-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f59e0b;
+    color: #0f172a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px; 
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sync-btn:hover {
+    background-color: #d97706;
+}
+
+.sync-btn:disabled {
+    background-color: #64748b;
+    cursor: not-allowed;
+}
+
+/* Analytics Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-4px);
+}
+
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #f1f5f9;
+}
+
+/* Content Containers (Charts & Tables) */
+.dashboard-section {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 2rem;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    color: #f1f5f9;
+    margin: 0 0 1.5rem 0;
+    font-size: 1.2rem;
+    border-left: 4px solid #f59e0b;
+    padding-left: 10px;
+}
+
+/* CRUD Data Management Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.crud-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.th-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.th-cell {
+    padding: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.tr-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgba(15, 23, 42, 0.2);
+    transition: background-color 0.2s ease;
+}
+
+.tr-row:hover {
+    background-color: rgba(30, 41, 59, 0.4);
+}
+
+.td-cell {
+    padding: 12px;
+    color: #e2e8f0;
+}
+
+.td-cell-id {
+    padding: 12px;
+    color: #64748b;
+    font-family: monospace;
+}
+
+.td-cell-close {
+    padding: 12px;
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.delete-action-btn {
+    background-color: transparent;
+    color: #ef4444;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+}
+
+.delete-action-btn:hover {
+    transform: scale(1.15);
+}
+
+/* Responsive Media Queries at the Bottom */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 1.6rem;
+        white-space: normal;
+    }
+}
