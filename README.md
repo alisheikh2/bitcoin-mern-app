@@ -4,7 +4,7 @@ A full-stack MERN app that pulls live Bitcoin market data from the CoinGecko API
 
 Built as a semester project to practice REST API design, third-party API integration, MongoDB upsert patterns, and building a data dashboard with React + Recharts.
 
-> **Note on scope:** This is intentionally a simple, focused project — not a production trading system. See [Limitations](#-known-limitations--honest-notes) below for what it does and doesn't do.
+> **Note on scope:** This is intentionally a simple, focused project — not a production trading system. See Limitations below for what it does and doesn't do.
 
 ---
 
@@ -100,7 +100,7 @@ The app will be available at `http://localhost:5173`, connecting to the backend 
 - Add authentication so records are scoped per user
 - Move the frontend API base URL into an environment variable for easy deployment
 - Add pagination/date-range filtering for the history table as data grows
-- Replace the momentum formula with a real trained model (e.g. the LSTM-based approach used in [my other Bitcoin prediction project](#)) for a genuine ML comparison
+- Replace the momentum formula with a real trained model (e.g. the LSTM-based approach used in my other Bitcoin prediction project for a genuine ML comparison
 
 ---
 
