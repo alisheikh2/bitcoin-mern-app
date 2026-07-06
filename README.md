@@ -81,12 +81,9 @@ The app will be available at `http://localhost:5173`, connecting to the backend 
 
 ## 📸 Screenshots
 
-*(Add screenshots here — see suggestions below)*
-
-```markdown
 ![Dashboard view](./screenshots/dashboard.png)
-![Price history chart](./screenshots/chart.png)
-```
+
+![Prediction table view](./screenshots/table.png)
 
 ---
 
