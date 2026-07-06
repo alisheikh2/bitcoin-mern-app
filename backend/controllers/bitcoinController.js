@@ -99,7 +99,7 @@ const predictNextDay = async (req, res) => {
             success: true,
             currentClose: currentClose,
             predictedPrice: predictedPrice,
-            modelUsed: "LSTM Trend Matrix & Momentum Inference Model"
+            modelUsed: "Moving Average Momentum Model (7-day window)"
         });
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });
