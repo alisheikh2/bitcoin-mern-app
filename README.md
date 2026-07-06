@@ -1,58 +1,112 @@
-# 🪙 Bitcoin Price Analytics & Prediction System (MERN Stack)
-A comprehensive Full-Stack web application built using the MERN stack that manages, tracks, and analyzes historical Bitcoin market data while offering predictive insights. This project simulates a real-world cryptocurrency dashboard, featuring automated data pipelines, asset logging, and high-performance backend organization.
+# 🪙 Bitcoin MERN Analytics
 
-## ⚙️ How the Project Works (System Architecture)
-This application operates on a clear, decoupled three-tier architecture (Client, Server, Database) to ensure smooth data synchronization:
-1. **The Data Layer (MongoDB):** Stores the daily historical footprints of Bitcoin (Open, High, Low, Close, Volume) along with custom classification tags and machine-learning-ready prediction schemas.
-2. **The Controller Layer (Node.js & Express):** Acts as the engine of the project. It handles requests coming from the frontend, securely connects to MongoDB, processes incoming crypto payloads, runs analytical operations, and ships clean JSON data back to the client.
-3. **The Presentation Layer (React.js):** Renders the visual charts, data tables, and high-low alert systems. It requests raw data from the API routes, processes it into user-friendly layouts, and implements client-side pagination to keep the UI smooth and responsive.
+A full-stack MERN app that pulls live Bitcoin market data from the CoinGecko API, stores it in MongoDB, visualizes price history on an interactive chart, and generates a simple next-day price estimate based on recent momentum.
 
-## 🚀 Key Functional Features
+Built as a semester project to practice REST API design, third-party API integration, MongoDB upsert patterns, and building a data dashboard with React + Recharts.
 
-**Historical Ledger (CRUD Operations):** Allows full tracking of historical asset data. Users can log daily records, update market deviations, search specific date intervals, and clean out redundant system logs via the frontend UI.
-**Smart Filtering & Analytics:** The backend dynamically isolates volatile periods (e.g., Bullish phases above specific price targets) and performs server-side calculations like average market volume before data hits the user interface.
-**Pagination System:** Designed to handle vast historical charts. Instead of dumping years of Bitcoin data onto the screen at once, the system slices the records neatly into logical dashboard pages to optimize render speed.
-**Future-Ready Prediction Schema:** Features placeholder hooks (`predictedClose`) designed to merge seamlessly with algorithmic data prediction modules for forecasting trends.
+> **Note on scope:** This is intentionally a simple, focused project — not a production trading system. See [Limitations](#-known-limitations--honest-notes) below for what it does and doesn't do.
 
-## 🛠️ Tech Stack & Dependencies
+---
 
-**Frontend:** React.js, Context API/Axios for state & server interaction, Tailwind CSS for dashboard design.
-**Backend:** Node.js, Express.js (REST API Endpoints)
-**Database:** MongoDB (Native Drivers / Mongoose Object Modeling)
+## ✨ Features
 
-## ⚙️ Installation & Setup Guide
+- **Live data sync** — fetches the last 30 days of Bitcoin price/volume data from CoinGecko and upserts it into MongoDB (re-running sync updates existing days instead of duplicating them)
+- **Price history dashboard** — area chart (Recharts) visualizing closing price over time
+- **Next-day price estimate** — computes a simple 7-day moving-average momentum score and projects a next-day close
+- **Metrics cards** — current closing price, latest prediction, and number of days stored
+- **CRUD table** — view all stored records with the ability to delete individual entries
+- **Clean REST API** — separate routes for sync, history, prediction, and deletion
 
-Follow these steps to deploy and run the system locally:
+---
 
-### 1. Prerequisites
-Ensure you have **Node.js** and **MongoDB Server** (Local or Atlas) installed on your machine.
+## 🛠 Tech Stack
 
-### 2. Clone the Repository
-git clone [https://github.com/alisheikh2/bitcoin-mern.git](https://github.com/alisheikh2/bitcoin-mern.git)
-cd bitcoin-mern
+| Layer        | Technology                                              |
+|--------------|----------------------------------------------------------|
+| **Frontend** | React 19, Vite, Recharts (charts), Axios, lucide-react (icons) |
+| **Backend**  | Node.js, Express 5                                        |
+| **Database** | MongoDB (Mongoose)                                        |
+| **External API** | [CoinGecko API](https://www.coingecko.com/en/api) (free tier) |
 
-### 3. Backend Deployment
-Move to the server directory:
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint                     | Description                                          |
+|--------|-------------------------------|-------------------------------------------------------|
+| GET    | `/api/bitcoin/fetch-live`    | Fetches last 30 days from CoinGecko and upserts to DB |
+| GET    | `/api/bitcoin/history`       | Returns all stored records, sorted by date            |
+| POST   | `/api/bitcoin/predict`       | Computes and saves a next-day price estimate          |
+| DELETE | `/api/bitcoin/delete/:id`    | Deletes a single record by ID                          |
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/alisheikh2/bitcoin-mern-app.git
+cd bitcoin-mern-app
+```
+
+### 2. Backend setup
+```bash
 cd backend
-
-Install the necessary node modules:
 npm install
+```
 
-Set up your environment file (.env):
+Create a `.env` file in `backend/`:
+```
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/bitcoin-analytics-db
+MONGO_URI=your_mongodb_connection_string
+```
 
-Boot up the REST API server:
+Run the backend:
+```bash
 npm start
+```
 
-### 4. Frontend Deployment (Terminal 2)
-Open a new terminal window or tab, navigate back to the root bitcoin-mern-app folder, and run:
-
-Move to the client directory:
-cd frontend
-
-Install user interface dependencies:
+### 3. Frontend setup
+```bash
+cd ../frontend
 npm install
+npm run dev
+```
 
-Start the React development environment:
-npm start
+The app will be available at `http://localhost:5173`, connecting to the backend at `http://localhost:5000`.
+
+> Currently the frontend calls `http://localhost:5000` directly rather than through an environment variable — see [Future Improvements](#-future-improvements) if you plan to deploy this.
+
+---
+
+## 📸 Screenshots
+
+*(Add screenshots here — see suggestions below)*
+
+```markdown
+![Dashboard view](./screenshots/dashboard.png)
+![Price history chart](./screenshots/chart.png)
+```
+
+---
+
+## ⚠️ Known Limitations & Honest Notes
+
+- **OHLC values are approximated.** CoinGecko's free-tier `market_chart` endpoint only returns closing price and volume — it does not provide real open/high/low data. This app approximates open/high/low as ±1–2% of the closing price. This is a simplification, not real historical OHLC data.
+- **The "prediction" is a moving-average momentum formula, not a trained model.** It looks at the last 7 days of closing prices, computes a momentum ratio against the average, and projects it forward. It's deterministic and repeatable — not machine learning.
+- **No authentication.** All endpoints are open; anyone with the API URL can sync, predict, or delete records. Fine for a personal/demo project, not suitable as-is for a multi-user production app.
+
+---
+
+## 🚀 Future Improvements
+
+- Add authentication so records are scoped per user
+- Move the frontend API base URL into an environment variable for easy deployment
+- Add pagination/date-range filtering for the history table as data grows
+- Replace the momentum formula with a real trained model (e.g. the LSTM-based approach used in [my other Bitcoin prediction project](#)) for a genuine ML comparison
+
+---
+
+## 👨‍💻 Developer
+
+**Ali** — [GitHub](https://github.com/alisheikh2)
