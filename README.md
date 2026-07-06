@@ -100,7 +100,7 @@ The app will be available at `http://localhost:5173`, connecting to the backend 
 - Add authentication so records are scoped per user
 - Move the frontend API base URL into an environment variable for easy deployment
 - Add pagination/date-range filtering for the history table as data grows
-- Replace the momentum formula with a real trained model (e.g. the LSTM-based approach used in my other Bitcoin prediction project for a genuine ML comparison
+- Replace the momentum formula with a real trained model (e.g. the LSTM-based approach used in my other Bitcoin prediction project for a genuine ML comparison.)
 
 ---
 
